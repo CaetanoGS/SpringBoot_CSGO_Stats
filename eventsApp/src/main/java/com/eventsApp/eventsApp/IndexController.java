@@ -1,17 +1,17 @@
 package com.eventsApp.eventsApp;
 
-import org.apache.commons.logging.Log;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.net.ssl.HttpsURLConnection;
-
-import com.fasterxml.jackson.annotation.JacksonInject.Value;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -19,20 +19,32 @@ import java.net.URL;
 @Controller
 public class IndexController {
 
-    @RequestMapping("/")
+    Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(){
-        try {
-			sendGet();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
         return "index";
     }
 
-    private void sendGet() throws Exception {
+    @RequestMapping(value = "/stats" , method = RequestMethod.POST)
+    public String stats(@RequestParam("id") String valueOne, Model model) throws Exception{ 
 
-        String url = "https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=775EBC39D386A0EC87475378886CEEB4&steamid=76561198358105030";
+        System.out.println(valueOne);
+        model.addAttribute("message", "Oi");
+
+        String id = "76561198358105030";
+
+        // http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=775EBC39D386A0EC87475378886CEEB4&steamids=76561198358105030
+
+        sendGet(id);
+        
+        return "stats";
+    }
+
+    private void sendGet(String id) throws Exception {
+
+        String url = "https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=775EBC39D386A0EC87475378886CEEB4&steamid=" + id;
 
         HttpURLConnection httpClient =
                 (HttpURLConnection) new URL(url).openConnection();

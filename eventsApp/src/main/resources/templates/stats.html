@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/yourcode.js"></script>
+</head>
+
+<style>
+    body{
+        background-color: rgb(39, 38, 38);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        opacity: 0.1;
+    }
+
+    #container{
+        width: 90%;
+        height: 90%;
+        position: absolute;
+        left: 5%;
+        top: 5%;
+        background-repeat: no-repeat;
+        border-radius: 20px;
+        justify-content: center;
+        align-items: center;
+        background: gray;
+        opacity: 0.1;
+    }
+
+    #photo{
+        position: absolute;
+        left: 5%;
+        top: 5%;
+        border-radius: 50px;
+    }
+
+    #nickName{
+        
+        color: #00ACEE;
+        font-family: 'Times New Roman', Times, serif;
+        position: absolute;
+        top: 5%;
+        left: 30%;
+        font-size: 20px;
+    }
+
+
+</style>
+<body>
+
+    <div class="fakeOpacity" id="fakeOpacity">
+
+    </div>
+    <div class="container" id="container">
+
+        <div class="profile" >
+
+            <div class="photo">
+                <img id="photo" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0b/0bc0fd4004b5a6923a8be036d42c2150de6a1de0_full.jpg" alt="">
+            </div>
+
+            <div class="nickname" id="nickName">
+                <i class="far fa-user"></i>
+            </div>
+
+            <div class="fake" id="fake"></div>
+
+        </div>
+
+    </div>
+    <h1 data-th-text="${message}"></h1>
+    <h2>WORLD</h2>
+</body>
+</html>
