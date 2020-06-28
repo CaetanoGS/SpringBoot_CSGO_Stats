@@ -11,6 +11,8 @@
     <!-- Load plotly.js into the DOM -->
     <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 
 </head>
 
@@ -32,13 +34,12 @@
 
         <ul>
 
-            <li> <a> <i> <img alt="" th:src="@{img/user.jpg}" width="30px" id="userIcon"> </i> Username: </a> </li>
-            <li> <a> <img alt="" th:src="@{img/kd.jpg}" width="30px" id="kd"> KD:</a> </li>
-            <li> <a> <img alt="" th:src="@{img/kills.jpg}" width="30px" id="kills"> Kills:</a> </li>
-            <li> <a> <img alt="" th:src="@{img/deaths.jpg}" width="30px" id="deaths"> Deaths:</a> </li>
-            <li> <a> <img alt="" th:src="@{img/wins.jpg}" width="30px" id="wins"> Wins:</a> </li>
-            <li> <a> <img alt="" th:src="@{img/mvp.jpg}" width="30px" id="mvp"> MVP's:</a> </li>
-            <li> <a> <img alt="" th:src="@{img/time.jpg}" width="30px" id="time"> Time played:</a> </li>
+            <li> <a> <i> <img alt="" th:src="@{img/user.jpg}" width="30px" id="userIcon" data-th-text="${nickName}"> </i> </a> </li>
+            <li> <a> <img alt="" th:src="@{img/kd.jpg}" width="30px" id="kd" data-th-text="${KD}"></a> </li>
+            <li> <a> <img alt="" th:src="@{img/kills.jpg}" width="30px" id="kills" data-th-text="${kills}"></a> </li>
+            <li> <a> <img alt="" th:src="@{img/deaths.jpg}" width="30px" id="deaths" data-th-text="${deaths}"></a> </li>
+            <li> <a> <img alt="" th:src="@{img/wins.jpg}" width="30px" id="wins" data-th-text="${wins}"></a> </li>
+            <li> <a> <img alt="" th:src="@{img/time.jpg}" width="30px" id="time" data-th-text="${time}"></a> </li>
             <li> <a> <img th:src="@{img/steam.jpg}" width="30px" alt=""> Steam Profile</a> </li>
 
         </ul>
@@ -50,6 +51,8 @@
         <header><h1>Last Match Statistics</h1></header>
 
         <div id="WeaponStatics"><h1>Weapons Statistics</h1></div>
+
+        <hr id="test">
 
         <div id="graph1">
             <canvas id="myChart"></canvas>
@@ -71,16 +74,23 @@
 
             <header><img alt="" th:src="@{img/deaths2.jpg}" width="50px" id="kills"></header>
 
-            <h1>Deaths</h1>
-            <h1 data-th-text="${message}"></h1>
-            
+            <h1>Deaths</h1>            
             
         </div>
     </div>
     
 
-    <h1 data-th-text="${message}"></h1>
-    <h2>WORLD</h2>
+    <script th:inline="javascript">
+        var url = [[${message}]];
+
+        console.log(url);
+
+        $("#photo").attr("src",url);
+
+    </script>
+
+
+
 
     <script>
         var ctx = document.getElementById('myChart').getContext('2d');

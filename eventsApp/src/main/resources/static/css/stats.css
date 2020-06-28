@@ -186,3 +186,8 @@ label #x{
     color: white;
 }
 
+#test{
+    position: absolute;
+    top: 50%;
+    color: #042331;
+}
