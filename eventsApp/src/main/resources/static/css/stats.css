@@ -1,0 +1,188 @@
+body{
+    background: url("https://www.csgowallpapers.com/assets/images/original_compressed/csgowallpaper_181053608747_1585246045_936360668623.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.sidebar{
+    position: fixed;
+    left: -250px    ;
+    width: 250px;
+    height: 100%;
+    background: #042331;
+    transition: all .5s ease;
+    z-index: 1110;
+    opacity: 0.99;
+}
+
+.sidebar header{
+    top: 5%;
+    user-select: none;
+    display: flex;
+    position: relative;
+    line-height: 70px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    padding-bottom: 50px;
+}
+
+#photo{
+
+    border-radius: 100px;
+}
+
+.sidebar ul a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 60px;
+    color: white;
+    padding-left: 15px;
+    box-sizing: border-box;
+    border-top: 1px solid rgb(255, 255, 255, 0.1);
+    transition: 0.4s;
+
+}
+
+ul li:hover a{
+    padding-left: 50px;
+}
+
+#check{
+    display: none;
+}
+
+label #menu, label #x{
+    position: absolute;
+    cursor: pointer;
+}
+
+label #menu{
+    left: 20px;
+    top: 10px;
+    font-size: 35px;
+    color: white;
+    padding: 6px 12px;
+    transition: all .5s;
+    
+}
+
+label #x{
+    z-index: 1111;
+    left: -195px;
+    top: 10px;
+    font-size: 30px;
+    color: #0a5275;
+    padding: 4px 9px;
+    transition: all .5s ease;
+}
+
+#check:checked ~ .sidebar{
+    left: 0;
+}
+
+#check:checked ~ label #menu{
+    left: 250px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#check:checked ~ label #x{
+    left: 195px;
+}
+
+
+#graph1{
+    display: flex;
+    position: absolute;
+    width: 700px;
+    height: 300px;
+    top: 80%;
+    opacity: 1;
+    border-radius: 20px;
+    z-index: 10000000;
+    color: white;
+    left: 20%;
+}
+
+#WeaponStatics{
+    position: absolute;
+    text-align: center;
+    color: #042331;
+    top: 60%;
+    left: 42%;
+}
+
+#pagWhite{
+    position: absolute;
+    top: 7%;
+    left: 5%;
+    width: 91%;
+    height: 85%;
+    background: white;
+    opacity: 0.8;
+    border-radius: 10px;
+    overflow: scroll;
+    color: #042331;
+    text-align: center;
+    padding-top: 20px;
+}
+
+#kd_last{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: #042331;
+    opacity: 0.95;
+    border-radius: 10px;
+    top: 15%;
+    left: 5%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 10px;
+    color: white;
+}
+
+#mvp_last{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: #042331;
+    opacity: 0.95;
+    border-radius: 10px;
+    top: 15%;
+    left: 78%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 10px;
+    color: white;
+}
+
+#deaths_last{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: #042331;
+    opacity: 0.95;
+    border-radius: 10px;
+    top: 15%;
+    left: 42%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 10px;
+    color: white;
+}
+
