@@ -105,22 +105,22 @@ label #x{
 #graph1{
     display: flex;
     position: absolute;
-    width: 700px;
+    width: 1050px;
     height: 300px;
-    top: 80%;
+    top: 120%;
     opacity: 1;
     border-radius: 20px;
     z-index: 10000000;
     color: white;
-    left: 20%;
+    left: 5%;
 }
 
 #WeaponStatics{
     position: absolute;
     text-align: center;
     color: #042331;
-    top: 60%;
-    left: 42%;
+    top: 100%;
+    left: 39%;
 }
 
 #pagWhite{
@@ -145,7 +145,7 @@ label #x{
     background: #042331;
     opacity: 0.95;
     border-radius: 10px;
-    top: 15%;
+    top: 20%;
     left: 5%;
     justify-content: center;
     align-items: center;
@@ -154,14 +154,14 @@ label #x{
     color: white;
 }
 
-#mvp_last{
+#kd1{
     position: absolute;
     width: 200px;
     height: 200px;
     background: #042331;
     opacity: 0.95;
     border-radius: 10px;
-    top: 15%;
+    top: 20%;
     left: 78%;
     justify-content: center;
     align-items: center;
@@ -177,7 +177,7 @@ label #x{
     background: #042331;
     opacity: 0.95;
     border-radius: 10px;
-    top: 15%;
+    top: 20%;
     left: 42%;
     justify-content: center;
     align-items: center;
@@ -186,8 +186,81 @@ label #x{
     color: white;
 }
 
-#test{
+#favWeapon{
     position: absolute;
-    top: 50%;
-    color: #042331;
+    width: 200px;
+    height: 200px;
+    background: #042331;
+    opacity: 0.95;
+    border-radius: 10px;
+    top: 60%;
+    left: 5%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 10px;
+    color: white;
+}
+
+
+#mvp_last{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: #042331;
+    opacity: 0.95;
+    border-radius: 10px;
+    top: 60%;
+    left: 78%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 10px;
+    color: white;
+}
+
+#shotspKill{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: #042331;
+    opacity: 0.95;
+    border-radius: 10px;
+    top: 60%;
+    left: 42%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 10px;
+    color: white;
+}
+
+#kdLastNumber{
+    padding-top: 20px;
+}
+
+#mvpLast{
+    padding-top: 20px;
+}
+
+#deathsLast{
+    padding-top: 20px;
+}
+
+#kd1Last{
+    padding-top: 20px;
+}
+
+#shotsLast{
+    padding-top: 20px;
+}
+
+#favLast{
+    padding-top: 20px;
+}
+
+#indicator{
+    position: absolute;
+    left: 78%;
+    top: 60%;
 }
