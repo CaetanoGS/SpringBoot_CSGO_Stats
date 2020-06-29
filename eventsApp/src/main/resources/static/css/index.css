@@ -1,3 +1,50 @@
-body{
+body {
+
+    color: white;
+    background: url("https://www.pxwall.com/wp-content/uploads/2019/03/CS-GO-Desktop-Wallpapers.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+input {
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    position: absolute;
+    display: block;
+    outline: none;
+    width: 400px;
+    height: 30p;
+    top: 45%;
+    left: 60%;
+    margin: 0 auto;
+    padding: 10px;
+    color: white;
+    -webkit-box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+button {
     background-color: black;
+    border: none;
+    color: white;
+    font-size: 30px;
+    position: absolute;
+    top: 52%;
+    left: 67%;
+    -webkit-box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    opacity: 0.6;
+    cursor: pointer;
+    width: 250px;
+}
+
+::placeholder {
+
+    color: white;
+    opacity: 1;
+    justify-content: center;
+    align-content: center;
+
 }

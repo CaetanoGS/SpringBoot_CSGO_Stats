@@ -10,13 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.math.BigDecimal;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.text.DecimalFormat;
 
@@ -34,18 +31,16 @@ public class IndexController {
     @RequestMapping(value = "/stats" , method = RequestMethod.POST)
     public String stats(@RequestParam("id") String valueOne, Model model){ 
 
-        //System.out.println(valueOne);
+        // Examples IDs
 
         //String id = "76561198358105030";
         //String id = "76561198410324369";
+
         String id = valueOne;
 
-  
 
+        // Output disires formats
 
-        // http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=775EBC39D386A0EC87475378886CEEB4&steamids=76561198358105030
-
-        //sendGet(id);
         DecimalFormat df = new DecimalFormat("###,###,###");
         DecimalFormat df1 = new DecimalFormat("###,###,###.00");
         DecimalFormat df2 = new DecimalFormat("0.00");
@@ -53,6 +48,7 @@ public class IndexController {
 
         
         String nickName;
+
 		try {
             nickName = getSteamUser(id);
             String kills = df.format(getUserKills(id));
@@ -63,11 +59,9 @@ public class IndexController {
             String MVPs = df.format(getUserMVPs(id));
             String photo = getUserphoto(id);
             String steamProfile = getUserSteamProfile(id);
-            
             float lastMatchKills = getData("last_match_kills", id);
             float lastMatchDeaths = getData("last_match_deaths", id);
             String KDLast = df2.format(lastMatchKills/lastMatchDeaths);
-            
             int lastMvps = (int) getData("last_match_mvps", id);
             int favWeaponLast = (int) getData("last_match_favweapon_id", id);
             String accuracy = df1.format(100*(getData("last_match_favweapon_hits", id)/getData("last_match_favweapon_shots", id)));
@@ -104,18 +98,16 @@ public class IndexController {
             return "index";
 		}
         
-
-        //String url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=775EBC39D386A0EC87475378886CEEB4&steamids=" + id;
-
-        
-
-        
-        
     }
+
+
+    // JSON search function
 
     private float getData(String obj, String id) throws IOException{
         
-        String url = "https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=775EBC39D386A0EC87475378886CEEB4&steamid=" + id;
+        // Insert your Steam Token over XXXXXX...
+
+        String url = "https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=XXXXXXXXXXXXXXXXXXXX&steamid=" + id;
 
 
 		HttpURLConnection httpClient =
@@ -150,15 +142,10 @@ public class IndexController {
                     JSONObject jsonObject1 = new JSONObject(jsonObject.getJSONObject("playerstats").getJSONArray("stats").get(i).toString());
 
                     if(jsonObject1.getString("name").equals(obj)){
-                        //System.out.println(jsonObject1.getLong("value"));
                         responseLong = jsonObject1.getInt("value");
                     }
                 }
 
-                
-
-                //JSONObject jsonObject1 = new JSONObject(jsonObject.getJSONObject("playerstats").getJSONArray("stats").get(0).toString());
-                //System.out.println(jsonObject1.getInt("value"));
             }catch (JSONException err){
                 System.out.println(err);
                 return -1;
@@ -169,10 +156,11 @@ public class IndexController {
         
     }
 
+    // GET the STEAM User ( I dont use the Search function because the username is in a static position, that^s why I wont use loops)
     
     private String getSteamUser(String id) throws IOException{
         
-        String url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=775EBC39D386A0EC87475378886CEEB4&steamids=" + id;
+        String url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=XXXXXXXXXXXXX&steamids=" + id;
 
         HttpURLConnection httpClient =
                 (HttpURLConnection) new URL(url).openConnection();
@@ -182,8 +170,6 @@ public class IndexController {
 
         //add request header
         httpClient.setRequestProperty("User-Agent", "Mozilla/5.0");
-
-        //int responseCode = httpClient.getResponseCode();
 
 
         try (BufferedReader in = new BufferedReader(
@@ -203,10 +189,6 @@ public class IndexController {
 
                 return jsonObject2.getString("personaname").toString();
 
-                
-
-                //JSONObject jsonObject1 = new JSONObject(jsonObject.getJSONObject("playerstats").getJSONArray("stats").get(0).toString());
-                //System.out.println(jsonObject1.getInt("value"));
             }catch (JSONException err){
                 System.out.println(err);
                 return null;
@@ -214,6 +196,8 @@ public class IndexController {
 
         }
     }
+
+    // GET the Weapon ID (List of Weapons IDs)
 
     private String getWeapon(int weaponID){
 
@@ -226,9 +210,12 @@ public class IndexController {
         return (weapons[weaponID-1]);
 
     }
+
+    // GET the STEAM Profile ( I dont use the Search function because the username is in a static position, that^s why I wont use loops)
+
     private String getUserSteamProfile(String id) throws IOException{
         
-        String url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=775EBC39D386A0EC87475378886CEEB4&steamids=" + id;
+        String url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=XXXXXXXXXXXXXXXXXX&steamids=" + id;
 
         HttpURLConnection httpClient =
                 (HttpURLConnection) new URL(url).openConnection();
@@ -238,8 +225,6 @@ public class IndexController {
 
         //add request header
         httpClient.setRequestProperty("User-Agent", "Mozilla/5.0");
-
-        //int responseCode = httpClient.getResponseCode();
 
 
         try (BufferedReader in = new BufferedReader(
@@ -259,10 +244,7 @@ public class IndexController {
 
                 return jsonObject2.getString("profileurl").toString();
 
-                
 
-                //JSONObject jsonObject1 = new JSONObject(jsonObject.getJSONObject("playerstats").getJSONArray("stats").get(0).toString());
-                //System.out.println(jsonObject1.getInt("value"));
             }catch (JSONException err){
                 System.out.println(err);
                 return null;
@@ -273,7 +255,7 @@ public class IndexController {
 
     private float getUserKills(String id) throws IOException{
         
-        String url = "https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=775EBC39D386A0EC87475378886CEEB4&steamid=" + id;
+        String url = "https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=XXXXXXXXXXXXXXXXXXXXX&steamid=" + id;
 
         HttpURLConnection httpClient =
                 (HttpURLConnection) new URL(url).openConnection();
@@ -283,8 +265,6 @@ public class IndexController {
 
         //add request header
         httpClient.setRequestProperty("User-Agent", "Mozilla/5.0");
-
-        //int responseCode = httpClient.getResponseCode();
 
 
         try (BufferedReader in = new BufferedReader(
@@ -305,10 +285,6 @@ public class IndexController {
                 System.out.println();
                 return jsonObject2.getInt("value");
 
-                
-
-                //JSONObject jsonObject1 = new JSONObject(jsonObject.getJSONObject("playerstats").getJSONArray("stats").get(0).toString());
-                //System.out.println(jsonObject1.getInt("value"));
             }catch (JSONException err){
                 System.out.println(err);
                 return -1;
@@ -317,9 +293,12 @@ public class IndexController {
         }
     }
 
+    // GET the User deaths ( I dont use the Search function because the username is in a static position, that^s why I wont use loops)
+
+
     private float getUserDeaths(String id) throws IOException{
         
-        String url = "https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=775EBC39D386A0EC87475378886CEEB4&steamid=" + id;
+        String url = "https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=XXXXXXXXXXXXXXXXXXX&steamid=" + id;
 
         HttpURLConnection httpClient =
                 (HttpURLConnection) new URL(url).openConnection();
@@ -329,8 +308,6 @@ public class IndexController {
 
         //add request header
         httpClient.setRequestProperty("User-Agent", "Mozilla/5.0");
-
-        //int responseCode = httpClient.getResponseCode();
 
 
         try (BufferedReader in = new BufferedReader(
@@ -347,13 +324,8 @@ public class IndexController {
                 JSONObject jsonObject = new JSONObject(response.toString());
                 
                 JSONObject jsonObject2 = new JSONObject(jsonObject.getJSONObject("playerstats").getJSONArray("stats").get(1).toString());
-                //System.out.println(jsonObject2.getInt("value"));
                 return jsonObject2.getInt("value");
 
-                
-
-                //JSONObject jsonObject1 = new JSONObject(jsonObject.getJSONObject("playerstats").getJSONArray("stats").get(0).toString());
-                //System.out.println(jsonObject2.getInt("value"));
             }catch (JSONException err){
                 System.out.println(err);
                 return -1;
@@ -362,10 +334,12 @@ public class IndexController {
         }
     }
 
+    // GET the User Wins ( I dont use the Search function because the username is in a static position, that^s why I wont use loops)
+
 
     private long getUserWins(String id) throws IOException{
         
-        String url = "https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=775EBC39D386A0EC87475378886CEEB4&steamid=" + id;
+        String url = "https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=XXXXXXXXXXXXXXXXXX&steamid=" + id;
 
         HttpURLConnection httpClient =
                 (HttpURLConnection) new URL(url).openConnection();
@@ -375,8 +349,6 @@ public class IndexController {
 
         //add request header
         httpClient.setRequestProperty("User-Agent", "Mozilla/5.0");
-
-        //int responseCode = httpClient.getResponseCode();
 
 
         try (BufferedReader in = new BufferedReader(
@@ -393,13 +365,9 @@ public class IndexController {
                 JSONObject jsonObject = new JSONObject(response.toString());
                 
                 JSONObject jsonObject2 = new JSONObject(jsonObject.getJSONObject("playerstats").getJSONArray("stats").get(5).toString());
-                //System.out.println(jsonObject2.getInt("value"));
+                
                 return jsonObject2.getLong("value");
 
-                
-
-                //JSONObject jsonObject1 = new JSONObject(jsonObject.getJSONObject("playerstats").getJSONArray("stats").get(0).toString());
-                //System.out.println(jsonObject2.getInt("value"));
             }catch (JSONException err){
                 System.out.println(err);
                 return -1;
@@ -408,9 +376,12 @@ public class IndexController {
         }
     }
 
+    // GET the User MVPs ( I dont use the Search function because the username is in a static position, that^s why I wont use loops)
+
+
     private long getUserMVPs(String id) throws IOException{
         
-        String url = "https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=775EBC39D386A0EC87475378886CEEB4&steamid=" + id;
+        String url = "https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=XXXXXXXXXXXXXXXXX&steamid=" + id;
 
         HttpURLConnection httpClient =
                 (HttpURLConnection) new URL(url).openConnection();
@@ -420,8 +391,6 @@ public class IndexController {
 
         //add request header
         httpClient.setRequestProperty("User-Agent", "Mozilla/5.0");
-
-        //int responseCode = httpClient.getResponseCode();
 
 
         try (BufferedReader in = new BufferedReader(
@@ -438,13 +407,9 @@ public class IndexController {
                 JSONObject jsonObject = new JSONObject(response.toString());
                 
                 JSONObject jsonObject2 = new JSONObject(jsonObject.getJSONObject("playerstats").getJSONArray("stats").get(99).toString());
-                //System.out.println(jsonObject2.getInt("value"));
+
                 return jsonObject2.getLong("value");
 
-                
-
-                //JSONObject jsonObject1 = new JSONObject(jsonObject.getJSONObject("playerstats").getJSONArray("stats").get(0).toString());
-                //System.out.println(jsonObject2.getInt("value"));
             }catch (JSONException err){
                 System.out.println(err);
                 return -1;
@@ -455,7 +420,7 @@ public class IndexController {
 
     private long getUserTimePlayed(String id) throws IOException{
         
-        String url = "https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=775EBC39D386A0EC87475378886CEEB4&steamid=" + id;
+        String url = "https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=XXXXXXXXXXXXXXXXXXXXXXX&steamid=" + id;
 
         HttpURLConnection httpClient =
                 (HttpURLConnection) new URL(url).openConnection();
@@ -465,8 +430,6 @@ public class IndexController {
 
         //add request header
         httpClient.setRequestProperty("User-Agent", "Mozilla/5.0");
-
-        //int responseCode = httpClient.getResponseCode();
 
 
         try (BufferedReader in = new BufferedReader(
@@ -483,13 +446,9 @@ public class IndexController {
                 JSONObject jsonObject = new JSONObject(response.toString());
                 
                 JSONObject jsonObject2 = new JSONObject(jsonObject.getJSONObject("playerstats").getJSONArray("stats").get(2).toString());
-                //System.out.println(jsonObject2.getInt("value"));
+
                 return jsonObject2.getLong("value");
 
-                
-
-                //JSONObject jsonObject1 = new JSONObject(jsonObject.getJSONObject("playerstats").getJSONArray("stats").get(0).toString());
-                //System.out.println(jsonObject2.getInt("value"));
             }catch (JSONException err){
                 System.out.println(err);
                 return -1;
@@ -500,7 +459,7 @@ public class IndexController {
 
     private String getUserphoto(String id) throws IOException{
         
-        String url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=775EBC39D386A0EC87475378886CEEB4&steamids=" + id;
+        String url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=XXXXXXXXXXXXXXXXXX&steamids=" + id;
 
         HttpURLConnection httpClient =
                 (HttpURLConnection) new URL(url).openConnection();
@@ -510,8 +469,6 @@ public class IndexController {
 
         //add request header
         httpClient.setRequestProperty("User-Agent", "Mozilla/5.0");
-
-        //int responseCode = httpClient.getResponseCode();
 
 
         try (BufferedReader in = new BufferedReader(
@@ -530,11 +487,7 @@ public class IndexController {
                 
 
                 return jsonObject2.getString("avatarfull").toString();
-
                 
-
-                //JSONObject jsonObject1 = new JSONObject(jsonObject.getJSONObject("playerstats").getJSONArray("stats").get(0).toString());
-                //System.out.println(jsonObject2.getInt("value"));
             }catch (JSONException err){
                 System.out.println(err);
                 return null;
